@@ -1,44 +1,59 @@
 # Assessment Debugging
 
-This is a Dash-based assessment project.  
-Follow the steps below to set up and run the app on a clean Ubuntu machine.
+This is a Dash-based assessment project.
+Follow the steps below to run the app on Fedora Linux without modifying the system Python environment.
 
 ---
 
 ## Setup Instructions
 
-### 1. Install system dependencies
-Update package lists and install required tools, Git, and Python 3.11:
+### Platform choice
+Use either **Arch Linux** or **Fedora Linux**.  
+The instructions below use **Fedora Linux**.
+
+### 1. Install system dependencies (Fedora)
+Install Git and curl only:
 
 ```
-sudo apt-get update -y
-sudo apt-get install -y software-properties-common
-sudo add-apt-repository -y ppa:deadsnakes/ppa
-sudo apt-get update -y
-sudo apt-get install -y git python3.11 python3.11-venv
+sudo dnf install -y git curl
 ```
-### 2. Create and activate a virtual environment
+
+### 2. Install `uv` (modern package manager)
+
 ```
-python3.11 -m venv .venv
-source .venv/bin/activate
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source "$HOME/.local/bin/env"
 ```
+
+`uv` respects both `pyproject.toml` and `.python-version`.
+
 ### 3. Clone the repository
+
 ```
-git clone https://github.com/MChikani/Assessment-debugging.git
+git clone https://github.com/osamaegy/Assessment-debugging.git
 cd Assessment-debugging
 ```
-### 4. Upgrade pip
+
+### 4. Create and activate a project virtual environment
+Do not install dependencies into system Python.
+
 ```
-python -m pip install --upgrade pip
+uv venv --python 3.12
+source .venv/bin/activate
 ```
-### 5. Install project dependencies
+
+### 5. Install project dependencies from `pyproject.toml`
+
 ```
-python -m pip install .
+uv sync
 ```
+
 ### 6. Run the application
+
 ```
 python main.py
 ```
+
 ### 7. Open the app in your browser
 
 Open the URL in your browser http://127.0.0.1:10030/ to view it.

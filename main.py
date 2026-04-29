@@ -50,7 +50,7 @@ day_list = [
     "Sunday",
 ]
 
-check_in_duration = df["Check-In Time"].describe(datetime_is_numeric=True)
+check_in_duration = df["Check-In Time"].describe()
 
 all_departments = df["Department"].unique().tolist()
 wait_time_inputs = [
